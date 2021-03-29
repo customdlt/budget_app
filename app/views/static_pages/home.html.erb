@@ -1,4 +1,14 @@
-<div class="container">
+
+<div class="homePage-backgroundImage">
+  <div class="homePage-caption">
+
+  <div>
+</div>
+
+
+<%
+=begin%>
+ <div class="container">
   <h2 class="text-center">Budget App</h2>
   <div id="homePage-carousel" class="carousel slide homePage-carousel" data-ride="carousel">
     <!-- Indicators -->
@@ -9,7 +19,7 @@
     </ol>
 
     <!-- Wrapper for slides -->
-    <div class="carousel-inner">
+    <div class="carousel-inner homePage-innerCarousel">
       <% @carousel_images.each_with_index do |img, index| %>
         <div class="item <%= index == 0 ? 'active' : '' %>">
           <%= image_tag("carousel/#{img.split('/').last}") %>
@@ -32,3 +42,5 @@
     </a>
   </div>
 </div>
+<%
+=end%>

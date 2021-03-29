@@ -1,0 +1,39 @@
+<%= stylesheet_link_tag "custom" %>
+<h1 class="text-center">New User Sign Up</h1>
+<% provide(:title, 'Sign Up') %>
+
+<div class="row text-center">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="d-flex flex-column mb-3">
+      <%= form_with(model: @user, local: true) do |f| %>
+        <div class="username-form-label">
+          <%= f.label :username %>
+        </div>
+        <div class="username-form-field">
+          <%= f.text_field :username %>
+        </div>
+        <div class="email-form-label">
+          <%= f.label :email %>
+        </div>
+        <div class="email-form-field">
+          <%= f.email_field :email %>
+        </div>
+        <div  class="password-form-label">
+          <%= f.label :password %>
+        </div>
+        <div class="password-form-field">
+          <%= f.password_field :password %>
+        </div>
+        <div class="password-confirmation-form-label">
+          <%= f.label :password_confirmation, "Password Confirmation" %>
+        </div>
+        <div class="password-confirmation-form-field">
+          <%= f.password_field :password_confirmation %>
+        </div>
+        <div class="form-submit-button">
+          <%= f.submit "Create my account", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
