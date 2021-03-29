@@ -1,2 +1,7 @@
-<h1>Sessions#welcome</h1>
-<p>Find me in app/views/sessions/welcome.html.erb</p>
+<div class="container session-welcomeContainer">
+  <h1>Sessions#welcome</h1>
+  <p>Find me in app/views/sessions/welcome.html.erb</p>
+  <% if logged_in? %>
+    <p1>You are Logged In as, <%= current_user.username %></p1>
+  <%end%>
+</div>
