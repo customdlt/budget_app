@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def new
     @user = User.new
+    @user.build_budget
   end
 
   def create
@@ -24,6 +25,6 @@ class UsersController < ApplicationController
   # Only allow a list of trusted parameters through.
   def user_params
     # params.fetch(:user, {})
-    params.require(:user).permit(:username, :email, :password, :password_confirmation, :salt, :encrypted_password)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation, :salt, :encrypted_password, budget_attributes: [:amount])
   end
 end

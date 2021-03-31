@@ -3,14 +3,23 @@
     <%= link_to "sample app", '#', id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <%= link_to root_path, class: "btn btn-default" do %>
-          <i class="glyphicon glyphicon-home"></i> Home
-        <% end %>
-        <%= link_to signup_path, class: "btn btn-default" do %>
-          <i class="glyphicon glyphicon-plus-sign"></i> Sign Up
-        <% end %>
-        <%= link_to login_path, class: "btn btn-default" do %>
-          <i class="glyphicon glyphicon-log-in"></i> Log In
+        <% if logged_in? %>
+          <%= link_to root_path, class: "btn btn-default" do %>
+            <i class="glyphicon glyphicon-home"></i> Home
+          <% end %>
+          <%= link_to logout_path, class: "btn btn-default" do %>
+            <i class="glyphicon glyphicon-log-out"></i> Log Out
+          <% end %>
+        <% else %>
+          <%= link_to root_path, class: "btn btn-default" do %>
+            <i class="glyphicon glyphicon-home"></i> Home
+          <% end %>
+          <%= link_to signup_path, class: "btn btn-default" do %>
+            <i class="glyphicon glyphicon-plus-sign"></i> Sign Up
+          <% end %>
+          <%= link_to login_path, class: "btn btn-default" do %>
+            <i class="glyphicon glyphicon-log-in"></i> Log In
+          <% end %>
         <% end %>
       </ul>
     </nav>

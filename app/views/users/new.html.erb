@@ -13,6 +13,14 @@
           <div class="username-form-field">
             <%= f.text_field :username %>
           </div>
+          <%= f.fields_for :budget do |budget_fields| %>
+            <div class="budget-form-label">
+              <%= budget_fields.label :amount, 'Budget Amount' %>
+            </div>
+            <div class="budget-form-field">
+              <%= budget_fields.number_field :amount, :step => 0.01 %>
+            </div>
+          <% end %>
           <div class="email-form-label">
             <%= f.label :email %>
           </div>
