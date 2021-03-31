@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_30_175146) do
+ActiveRecord::Schema.define(version: 2021_03_31_222208) do
 
   create_table "budgets", force: :cascade do |t|
     t.decimal "amount"
@@ -18,6 +18,27 @@ ActiveRecord::Schema.define(version: 2021_03_30_175146) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id", null: false
     t.index ["user_id"], name: "index_budgets_on_user_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "expenses", force: :cascade do |t|
+    t.datetime "due_date"
+    t.decimal "amount_due"
+    t.decimal "amount_paid"
+    t.boolean "paid"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "category_id", null: false
+    t.string "description"
+    t.index ["category_id"], name: "index_expenses_on_category_id"
+    t.index ["user_id"], name: "index_expenses_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -30,4 +51,6 @@ ActiveRecord::Schema.define(version: 2021_03_30_175146) do
   end
 
   add_foreign_key "budgets", "users"
+  add_foreign_key "expenses", "categories"
+  add_foreign_key "expenses", "users"
 end

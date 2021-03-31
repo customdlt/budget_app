@@ -1,0 +1,52 @@
+<%= stylesheet_link_tag "custom" %>
+<div class="container expense-createForm">
+  <h1 class="text-center">Add New Expense</h1>
+  <% provide(:title, 'Add New Expense') %>
+  <div class="row text-center">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="d-flex flex-column mb-3">
+        <%= form_with(model: @expense, local: true) do |f| %>
+          <div class="description-form-label">
+            <%= f.label :description %>
+          </div>
+          <div class="description-form-field">
+            <%= f.text_field :description %>
+          </div>
+          <div class="dueDate-form-label">
+            <%= f.label :due_date, "Due Date" %>
+          </div>
+          <div class="dueDate-form-field">
+            <%= f.date_field :due_date %>
+          </div>
+          <div class="amountDue-form-label">
+            <%= f.label :amount_due, "Amount Due" %>
+          </div>
+          <div class="amountDue-form-field">
+            <%= f.number_field :amount_due, :step => 0.01 %>
+          </div>
+          <div  class="amountPaid-form-label">
+            <%= f.label :amount_paid, "Amount Paid" %>
+          </div>
+          <div class="amountPaid-form-field">
+            <%= f.number_field :amount_paid, :step => 0.01 %>
+          </div>
+          <div  class="category-id-form-label">
+            <%= f.label :category_id, "Category" %>
+          </div>
+          <div class="category-id-form-field">
+            <%= f.collection_select(:category_id, Category.all, :id, :name) %>
+          </div>
+          <div class="paid-form-label">
+            <%= f.label :paid %>
+          </div>
+          <div class="paid-form-field">
+            <%= f.check_box :paid %>
+          </div>
+          <div class="form-submit-button">
+            <%= f.submit "Create my account", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,10 +9,14 @@ class UsersController < ApplicationController
     if @user.save
       payload = { user_id: @user.id }
       log_in(@user)
-      redirect_to '/welcome'
+      redirect_to @user
     else
       render 'new'
     end
+  end
+
+  def show
+    @user = User.find(params[:id])
   end
 
   private

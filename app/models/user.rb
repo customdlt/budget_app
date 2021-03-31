@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_one :budget
   accepts_nested_attributes_for :budget
+  has_many :expenses
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 

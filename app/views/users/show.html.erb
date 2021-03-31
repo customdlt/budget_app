@@ -1,0 +1,10 @@
+<%= stylesheet_link_tag "custom" %>
+<div class="container">
+  <h1 class="text-center"> <%= "Welcome #{@user.username}, with a budget of #{number_to_currency(@user.budget.amount)}" %> </h1>
+  <div class="row">
+    <%= link_to "Create A New Expense", new_expense_path %>
+  </div>
+  <div class="row">
+    <%= "Number of Expenses: #{@user.expenses.size}" %>
+  </div>
+</div>
