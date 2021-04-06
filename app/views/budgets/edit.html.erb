@@ -1,0 +1,22 @@
+<%= stylesheet_link_tag "custom" %>
+<div class="container budget-editForm">
+  <h1 class="text-center">Add Money to Your Budget</h1>
+  <% provide(:title, 'Add Money to Your Budget') %>
+  <div class="row text-center">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="d-flex flex-column mb-3">
+        <%= form_with(model: @budget, local: true) do |f| %>
+          <div  class="amount-form-label">
+            <%= f.label :amount, "Additional Amount to Budget" %>
+          </div>
+          <div class="amount-form-field">
+            <%= f.number_field :amount, :step => 0.01, :value => 0.00 %>
+          </div>
+          <div class="form-submit-button">
+            <%= f.submit "Add Money", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

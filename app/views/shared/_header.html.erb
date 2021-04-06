@@ -4,7 +4,7 @@
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
-          <%= link_to root_path, class: "btn btn-default" do %>
+          <%= link_to user_path(current_user), class: "btn btn-default" do %>
             <i class="glyphicon glyphicon-home"></i> Home
           <% end %>
           <%= link_to logout_path, class: "btn btn-default" do %>

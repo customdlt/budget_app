@@ -1,10 +1,51 @@
 <%= stylesheet_link_tag "custom" %>
 <div class="container">
-  <h1 class="text-center"> <%= "Welcome #{@user.username}, with a budget of #{number_to_currency(@user.budget.amount)}" %> </h1>
+  <h1 class="text-center user-profileHeader"> <%= "Welcome #{@user.username}, you have a budget of #{number_to_currency(@user.budget.amount)} remaining." %> </h1>
   <div class="row">
     <%= link_to "Create A New Expense", new_expense_path %>
   </div>
   <div class="row">
     <%= "Number of Expenses: #{@user.expenses.size}" %>
+  </div>
+  <div class="row">
+    <%= link_to "Add More Money To Your Budget", edit_budget_path(@user.budget) %>
+  </div>
+  <div class="row user-tableContainer table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Expense</th>
+          <th scope="col">Amount Due</th>
+          <th scope="col">Amount Paid</th>
+          <th scope="col">Due Date</th>
+          <th scope="col">Paid</th>
+          <th scope="col">Apply Payment</th>
+          <th scope="col">Delete Expense</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user.expenses.each_with_index do |expense, index| %>
+          <tr>
+            <th scope="row"><%= index + 1 %></th>
+            <td><%= expense.description %></td>
+            <td><%= number_to_currency(expense.amount_due) %></td>
+            <td><%= number_to_currency(expense.amount_paid) %></td>
+            <td><%= expense.due_date %></td>
+            <td>
+              <% paid_status_icon_class = expense.paid ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove' %>
+              <span class="<%= paid_status_icon_class %>"></span>
+            </td>
+            <td>
+              <% payment_button_class = expense.paid ? 'btn btn-success disabled' : 'btn btn-success' %>
+              <%= link_to 'Add payment', edit_expense_path(expense), class: payment_button_class %>
+            </td>
+            <td>
+              <%= button_to 'Delete', expense_path(expense), method: :delete, class: 'btn btn-danger' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
