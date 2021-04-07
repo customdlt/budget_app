@@ -10,42 +10,49 @@
   <div class="row">
     <%= link_to "Add More Money To Your Budget", edit_budget_path(@user.budget) %>
   </div>
-  <div class="row user-tableContainer table-responsive">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Expense</th>
-          <th scope="col">Amount Due</th>
-          <th scope="col">Amount Paid</th>
-          <th scope="col">Due Date</th>
-          <th scope="col">Paid</th>
-          <th scope="col">Apply Payment</th>
-          <th scope="col">Delete Expense</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @user.expenses.each_with_index do |expense, index| %>
+  <div class="row">
+    <div class="col-sm-6 user-tableContainer table-responsive ">
+      <table class="table table-bordered">
+        <thead>
           <tr>
-            <th scope="row"><%= index + 1 %></th>
-            <td><%= expense.description %></td>
-            <td><%= number_to_currency(expense.amount_due) %></td>
-            <td><%= number_to_currency(expense.amount_paid) %></td>
-            <td><%= expense.due_date %></td>
-            <td>
-              <% paid_status_icon_class = expense.paid ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove' %>
-              <span class="<%= paid_status_icon_class %>"></span>
-            </td>
-            <td>
-              <% payment_button_class = expense.paid ? 'btn btn-success disabled' : 'btn btn-success' %>
-              <%= link_to 'Add payment', edit_expense_path(expense), class: payment_button_class %>
-            </td>
-            <td>
-              <%= button_to 'Delete', expense_path(expense), method: :delete, class: 'btn btn-danger' %>
-            </td>
+            <th scope="col">#</th>
+            <th scope="col">Expense</th>
+            <th scope="col">Amount Due</th>
+            <th scope="col">Amount Paid</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Paid</th>
+            <th scope="col">Apply Payment</th>
+            <th scope="col">Delete Expense</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @user.expenses.each_with_index do |expense, index| %>
+            <tr>
+              <th scope="row"><%= index + 1 %></th>
+              <td><%= expense.description %></td>
+              <td><%= number_to_currency(expense.amount_due) %></td>
+              <td><%= number_to_currency(expense.amount_paid) %></td>
+              <td><%= expense.due_date %></td>
+              <td>
+                <% paid_status_icon_class = expense.paid ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove' %>
+                <span class="<%= paid_status_icon_class %>"></span>
+              </td>
+              <td>
+                <% payment_button_class = expense.paid ? 'btn btn-success disabled' : 'btn btn-success' %>
+                <%= link_to 'Add payment', edit_expense_path(expense), class: payment_button_class %>
+              </td>
+              <td>
+                <%= link_to expense_path(expense), method: :delete, class: "btn btn-danger" do %>
+                  <i class="glyphicon glyphicon-remove"></i>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-6 user-barChartContainer">
+      <%= column_chart @user.expenses.joins(:category).group('categories.name').sum(:amount_paid), prefix: "$" %>
+    </div>
   </div>
 </div>

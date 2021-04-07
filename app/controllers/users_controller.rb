@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_action :authenticate
+  before_action :correct_user?,  only: [:show]
+
   def new
     @user = User.new
     @user.build_budget
@@ -16,10 +19,18 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    set_user
   end
 
   private
+
+  #make sure correct user is viewing the page
+  def correct_user?
+    set_user
+    unless current_user?(@user)
+      redirect_to user_path(current_user)
+    end
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user

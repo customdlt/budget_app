@@ -1,4 +1,7 @@
 class ExpensesController < ApplicationController
+  before_action :authenticate
+  before_action :correct_user?,  only: [:edit, :update]
+
   def new
     @expense = Expense.new
   end
@@ -14,32 +17,40 @@ class ExpensesController < ApplicationController
   end
 
   def edit
-    @expense = Expense.find(params[:id])
+    set_expense
   end
 
   def update
-    @expense = Expense.find(params[:id])
+    set_expense
     if @expense.update(amount_paid: @expense.amount_paid + expense_params[:amount_paid].to_f)
       redirect_to user_path(@expense.user)
     else
+      flash[:error] = @expense.errors.full_messages[0]
       render 'edit'
     end
   end
 
   def show
-    @expense = Expense.find(params[:id])
+    set_expense
     @user = User.find(@expense.user_id)
     @user_expenses = Expense.where(user_id: @expense.user_id)
   end
 
   def destroy
-    @expense = Expense.find(params[:id])
+    set_expense
     user = current_user
     @expense.destroy
     redirect_to user_path(user)
   end
 
   private
+
+  def correct_user?
+    set_expense
+    unless current_user?(@expense.user)
+      redirect_to user_path(current_user)
+    end
+  end
 
   def set_expense
     @expense = Expense.find(params[:id])

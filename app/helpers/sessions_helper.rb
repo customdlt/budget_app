@@ -7,6 +7,13 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  def authenticate
+    if current_user.nil?
+      flash[:error] = "Please log in to view this page."
+      redirect_to login_path
+    end
+  end
+
   def current_user?(user)
     user && user == current_user
   end

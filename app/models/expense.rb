@@ -27,8 +27,6 @@ class Expense < ApplicationRecord
   end
 
   def payment_exceeds_amount_due?
-    # raise 'HELL'
-    # byebug
     if amount_paid > amount_due
       self.errors[:base] << 'Cannot apply payment amount (total) over amount due'
       throw(:abort)
