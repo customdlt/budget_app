@@ -2,8 +2,63 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 .user{
+  &-row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  &-column{
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+  }
+  &-ModificationColumn{
+    text-align: center;
+    opacity: 1.0;
+    height: 660px;
+    width: 50vw;
+  }
+  &-InteractionBox{
+    // border: 1px solid black;
+    margin: auto;
+    width: 45vw;
+    height: 100px;
+    background-color: #ffffffff;
+    border: 1px solid black;
+    opacity: 0.75;
+  }
+  &-InteractionHeader{
+    margin-top: 5px;
+    font-weight: bold;
+  }
+  &-expenseGraphs{
+    margin: auto;
+    width: 45vw;
+    height: 660px;
+    background-color: #ffffffff;
+    border: 1px solid black;
+    opacity: 0.75;
+  }
+  &-expensesPieChart{
+    margin-top: 45px;
+  }
+  &-addExpense{
+    margin-top: 10px;
+  }
+  &-addBudget{
+    margin-top: 20px;
+  }
   &-signupForm{
     margin-top: 60px;
+  }
+  &-tableContainer{
+    margin: auto;
+    margin-top: 100px;
+    width: 90%;
+    height: 350px;
+    overflow-y: auto;
   }
 }
 table,

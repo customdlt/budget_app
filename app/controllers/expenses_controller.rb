@@ -12,6 +12,7 @@ class ExpensesController < ApplicationController
     if @expense.save
       redirect_to user_path(@expense.user)
     else
+      flash[:error] = @expense.errors.full_messages[0]
       render 'new'
     end
   end

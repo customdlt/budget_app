@@ -5,17 +5,18 @@
 //   width:100%;
 //   height:400px !important;
 // }
-
-.homePage{
-  &-backgroundImage{
-    background: asset-url('budget-three.png') no-repeat;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: block;
-    position: relative;
-    height: 100%;
-    padding-bottom: 20%;
-    background-size: 100%;
+.homePage, .helpPage{
+  &-transBox{
+    margin: auto;
+    width: 50vw;
+    height: 50vh;
+    background-color: #ffffffff;
+    border: 1px solid black;
+    opacity: 0.6;
+  }
+  &-text{
+    margin: 5%;
+    font-weight: bold;
+    color: #000000;
   }
 }

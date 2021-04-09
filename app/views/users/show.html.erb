@@ -1,21 +1,91 @@
 <%= stylesheet_link_tag "custom" %>
-<div class="container">
+<div class="user-PageWrapper">
+  <h1 class="text-center user-profileHeader"> <%= "Welcome #{@user.username}, you have a budget of #{number_to_currency(@user.budget.amount)} remaining." %> </h1>
+  <div class="user-row">
+    <div class="user-column">
+      <div class="user-ModificationColumn">
+        <div class="user-InteractionBox">
+          <div class="user-InteractionHeader">
+            Add an Expense or Add Money to your Budget!
+          </div>
+          <div class="user-addBudget">
+            <%= link_to edit_budget_path(@user.budget) do %>
+              Add More Money To Your Budget <i class="glyphicon glyphicon-usd"></i>
+            <% end %>
+          </div>
+          <div class="user-addExpense">
+            <%= link_to new_expense_path do %>
+              Add Another Expense <i class="glyphicon glyphicon-book"></i>
+            <% end %>
+          </div>
+        </div>
+        <div class="user-tableContainer table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Expense</th>
+                <th scope="col">Amount Due</th>
+                <th scope="col">Amount Paid</th>
+                <th scope="col">Due Date</th>
+                <th scope="col">Paid</th>
+                <th scope="col">Apply Payment</th>
+                <th scope="col">Delete Expense</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @user.expenses.each_with_index do |expense, index| %>
+                <tr>
+                  <td><%= expense.description %></td>
+                  <td><%= number_to_currency(expense.amount_due) %></td>
+                  <td><%= number_to_currency(expense.amount_paid) %></td>
+                  <td><%= expense.due_date %></td>
+                  <td>
+                    <% paid_status_icon_class = expense.paid ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove' %>
+                    <span class="<%= paid_status_icon_class %>"></span>
+                  </td>
+                  <td>
+                    <% payment_button_class = expense.paid ? 'btn btn-success disabled' : 'btn btn-success' %>
+                    <%= link_to 'Add payment', edit_expense_path(expense), class: payment_button_class %>
+                  </td>
+                  <td>
+                    <%= link_to expense_path(expense), method: :delete, class: "btn btn-danger" do %>
+                      <i class="glyphicon glyphicon-remove"></i>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="user-column">
+      <div class="user-expenseGraphs">
+        <div class="user-expensesPaidCategoryColumnChart">
+          <%= column_chart @user.expenses.joins(:category).group('categories.name').sum(:amount_paid), prefix: "$", xtitle: 'Category', ytitle: 'Amount Spent', title: 'Expense Spending By Category' %>
+        </div>
+        <div class="user-expensesPieChart">
+          <%= pie_chart @user.expenses.joins(:category).group('categories.name').count, legend: "right", title: 'Number of Expenses by Category' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%
+=begin%>
+ <div class="container">
   <h1 class="text-center user-profileHeader"> <%= "Welcome #{@user.username}, you have a budget of #{number_to_currency(@user.budget.amount)} remaining." %> </h1>
   <div class="row">
     <%= link_to "Create A New Expense", new_expense_path %>
   </div>
   <div class="row">
-    <%= "Number of Expenses: #{@user.expenses.size}" %>
-  </div>
-  <div class="row">
     <%= link_to "Add More Money To Your Budget", edit_budget_path(@user.budget) %>
   </div>
   <div class="row">
-    <div class="col-sm-6 user-tableContainer table-responsive ">
+    <div class="col-sm-6 user-tableContainer table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th scope="col">#</th>
             <th scope="col">Expense</th>
             <th scope="col">Amount Due</th>
             <th scope="col">Amount Paid</th>
@@ -28,7 +98,6 @@
         <tbody>
           <% @user.expenses.each_with_index do |expense, index| %>
             <tr>
-              <th scope="row"><%= index + 1 %></th>
               <td><%= expense.description %></td>
               <td><%= number_to_currency(expense.amount_due) %></td>
               <td><%= number_to_currency(expense.amount_paid) %></td>
@@ -51,8 +120,15 @@
         </tbody>
       </table>
     </div>
-    <div class="col-sm-6 user-barChartContainer">
-      <%= column_chart @user.expenses.joins(:category).group('categories.name').sum(:amount_paid), prefix: "$" %>
+    <div class="col-sm-6 user-infoGraphs">
+      <div class="user-expensesPaidCategoryColumnChart">
+        <%= column_chart @user.expenses.joins(:category).group('categories.name').sum(:amount_paid), prefix: "$" %>
+      </div>
+      <div class="user-expensesPieChart">
+        <%= pie_chart @user.expenses.joins(:category).group('categories.name').count, legend: "right" %>
+      </div>
     </div>
   </div>
 </div>
+<%
+=end%>

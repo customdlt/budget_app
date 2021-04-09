@@ -1,27 +1,50 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
-    <%= link_to "Budget app", '#', id: "logo" %>
-    <nav>
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+          <% if logged_in? %>
+            <%= link_to user_path(current_user) do %>
+              Budget App<i class="glyphicon glyphicon-stats"></i>
+            <% end %>
+          <% else %>
+            <%= link_to root_path do %>
+              Budget App<i class="glyphicon glyphicon-stats"></i>
+            <% end %>
+          <% end %>
+        </li>
+      </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
-          <%= link_to user_path(current_user), class: "btn btn-default" do %>
-            <i class="glyphicon glyphicon-home"></i> Home
-          <% end %>
-          <%= link_to logout_path, class: "btn btn-default" do %>
-            <i class="glyphicon glyphicon-log-out"></i> Log Out
-          <% end %>
+          <li>
+            <%= link_to logout_path do %>
+              Log Out<i class="glyphicon glyphicon-log-out"></i>
+            <% end %>
+          </li>
         <% else %>
-          <%= link_to root_path, class: "btn btn-default" do %>
-            <i class="glyphicon glyphicon-home"></i> Home
-          <% end %>
-          <%= link_to signup_path, class: "btn btn-default" do %>
-            <i class="glyphicon glyphicon-plus-sign"></i> Sign Up
-          <% end %>
-          <%= link_to login_path, class: "btn btn-default" do %>
-            <i class="glyphicon glyphicon-log-in"></i> Log In
-          <% end %>
+          <li>
+            <%= link_to signup_path do %>
+              Sign Up<i class="glyphicon glyphicon-plus-sign"></i>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to login_path do %>
+              Log In<i class="glyphicon glyphicon-user"></i>
+            <% end %>
+          </li>
         <% end %>
+        <li>
+          <%= link_to help_path do %>
+            Help<i class="glyphicon glyphicon-cog"></i>
+          <% end %>
+        </li>
       </ul>
-    </nav>
+    </div>
   </div>
-</header>
+</div>

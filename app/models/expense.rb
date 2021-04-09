@@ -6,6 +6,8 @@ class Expense < ApplicationRecord
   # before_update :prevent_update_if_expense_is_paid, :if => :paid
   before_update :prevent_update_if_payment_exceeds_limits, :if => :amount_paid_changed?
 
+  before_save :payment_exceeds_amount_due?
+
   private
 
   def prevent_update_if_payment_exceeds_limits
@@ -41,10 +43,8 @@ class Expense < ApplicationRecord
   end
 
   def set_paid_status
-    # raise 'HELL'
     if amount_paid == amount_due
       self.update_column(:paid, true)
-      # raise 'HELL'
     end
   end
 

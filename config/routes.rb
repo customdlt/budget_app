@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
   get '/signup',  to: 'users#new'
   get '/welcome', to: 'sessions#welcome'
+  get '/help', to: 'static_pages#help'
 end

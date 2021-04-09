@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :authenticate
+  before_action :authenticate, only: [:show]
   before_action :correct_user?,  only: [:show]
+  before_action :logged_in_user?,  only: [:new]
 
   def new
     @user = User.new
@@ -14,6 +15,7 @@ class UsersController < ApplicationController
       log_in(@user)
       redirect_to @user
     else
+      flash[:message] =  @user.errors.full_messages[0]
       render 'new'
     end
   end
@@ -24,10 +26,17 @@ class UsersController < ApplicationController
 
   private
 
-  #make sure correct user is viewing the page
+  # make sure correct user is viewing the page
   def correct_user?
     set_user
     unless current_user?(@user)
+      redirect_to user_path(current_user)
+    end
+  end
+
+  # make sure logged in user can't view sign up page
+  def logged_in_user?
+    if logged_in?
       redirect_to user_path(current_user)
     end
   end
