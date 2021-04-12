@@ -2,14 +2,18 @@
 
 one:
   due_date: 2021-03-30 23:26:07
-  amount_due: 9.99
-  amount_paid: 9.99
+  amount_due: 1050.00
+  amount_paid: 0.00
   paid: false
   user: one
+  category: one
+  description: 'Rent'
 
 two:
   due_date: 2021-03-30 23:26:07
-  amount_due: 9.99
-  amount_paid: 9.99
+  amount_due: 29.50
+  amount_paid: 29.50
   paid: false
   user: two
+  category: two
+  description: 'Gas'
