@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
-  test "should get new as signup" do
+  test "should get new user as signup" do
     get signup_path
     assert_response :success
   end
@@ -11,9 +11,37 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_path
   end
 
-  test "should be able to create user and go to profile page" do
+  test "user should fail create if they don't have a username on sign up" do
+    user_attributes = setup_user_params
+    user_attributes[:username] = nil
+    assert_no_difference 'User.count' do
+      post "/users", params: { user: user_attributes }
+      assert_equal "Username can't be blank", flash[:error]
+    end
+  end
+
+  test "user should fail create if there isn't a budget amount" do
+    user_attributes = setup_user_params
+    user_attributes[:budget_attributes][:amount] = nil
+    assert_no_difference 'User.count' do
+      post "/users", params: { user: user_attributes }
+      assert_equal "Budget amount can't be blank", flash[:error]
+    end
+  end
+
+  test "user should fail create if there isn't a password on sign up" do
+    user_attributes = setup_user_params
+    user_attributes[:password]= nil
+    user_attributes[:password_confirmation] = nil
+    assert_no_difference 'User.count' do
+      post "/users", params: { user: user_attributes }
+      assert_equal "Password can't be blank", flash[:error]
+    end
+  end
+
+  test "should be able to create user and redirect to show user" do
     assert_difference 'User.count' do
-      post "/users", params: { user: setup_user_params}
+      post "/users", params: { user: setup_user_params }
     end
     assert_response :redirect
     follow_redirect!

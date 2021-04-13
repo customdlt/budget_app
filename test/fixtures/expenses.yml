@@ -12,7 +12,7 @@ one:
 two:
   due_date: 2021-03-30 23:26:07
   amount_due: 29.50
-  amount_paid: 29.50
+  amount_paid: 0
   paid: false
   user: two
   category: two

@@ -2,11 +2,20 @@ class Expense < ApplicationRecord
   belongs_to :user
   belongs_to  :category
 
+  validates_presence_of :due_date
+  validates_presence_of :description
+
+  validates_numericality_of :amount_due
+  validates_numericality_of :amount_paid
+
+  attribute :paid, :boolean, default: false
+
   after_commit :apply_payment_to_expense, on: [:create, :update]
   # before_update :prevent_update_if_expense_is_paid, :if => :paid
   before_update :prevent_update_if_payment_exceeds_limits, :if => :amount_paid_changed?
 
   before_save :payment_exceeds_amount_due?
+  before_save :payment_exceeds_remaining_budget_balance?
 
   private
 
