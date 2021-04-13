@@ -40,7 +40,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should be able to create user and redirect to show user" do
-    assert_difference 'User.count' do
+    assert_difference ['User.count', 'Budget.count'] do
       post "/users", params: { user: setup_user_params }
     end
     assert_response :redirect
@@ -54,6 +54,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         )
       } remaining."
     )
+    assert_equal Budget.last.user_id, User.last.id
+    assert_equal Budget.last.amount, 20.00
   end
 
   private

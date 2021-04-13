@@ -1,9 +1,6 @@
 require 'test_helper'
 
 class ExpenseTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
   setup do
     @test_expense = Expense.new(
       due_date: '12 Apr 2021',
