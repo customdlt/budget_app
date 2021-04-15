@@ -72,7 +72,7 @@
           <%= column_chart @user.expenses.joins(:category).group('categories.name').sum(:amount_paid), prefix: "$", xtitle: 'Category', ytitle: 'Amount Spent', title: 'Expense Spending By Category' %>
         </div>
         <div class="user-expensesPieChart">
-          <%= pie_chart @user.expenses.joins(:category).group('categories.name').count, legend: "right", title: 'Number of Expenses by Category' %>
+          <%= pie_chart @user.expenses.joins(:category).group('categories.name').sum(:amount_paid), prefix: "$", legend: "right", title: 'Expense Spending By Category' %>
         </div>
       </div>
     </div>
