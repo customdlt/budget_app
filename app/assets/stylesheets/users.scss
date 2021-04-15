@@ -17,7 +17,7 @@
   &-ModificationColumn{
     text-align: center;
     opacity: 1.0;
-    height: 660px;
+    height: 700px;
     width: 50vw;
   }
   &-InteractionBox{
@@ -36,13 +36,13 @@
   &-expenseGraphs{
     margin: auto;
     width: 45vw;
-    height: 660px;
+    height: 700px;
     background-color: #ffffffff;
     border: 1px solid black;
     opacity: 0.75;
   }
   &-expensesPieChart{
-    margin-top: 45px;
+    margin-top: 25px;
   }
   &-addExpense{
     margin-top: 10px;

@@ -61,6 +61,13 @@
     </div>
     <div class="user-column">
       <div class="user-expenseGraphs">
+        <div class="user-expenseGraphHeader text-center">
+            <% if @user.expenses.empty? %>
+              <h3> Add Expenses to Begin Seeing Reports on Them! </h3>
+            <% else %>
+              <h3> Expense Reports </h3>
+            <% end %>
+          </div>
         <div class="user-expensesPaidCategoryColumnChart">
           <%= column_chart @user.expenses.joins(:category).group('categories.name').sum(:amount_paid), prefix: "$", xtitle: 'Category', ytitle: 'Amount Spent', title: 'Expense Spending By Category' %>
         </div>

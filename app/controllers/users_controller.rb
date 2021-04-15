@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate, only: [:show]
+  skip_before_action  :authenticate , only: [:new, :create]
   before_action :correct_user?,  only: [:show]
   before_action :logged_in_user?,  only: [:new]
 

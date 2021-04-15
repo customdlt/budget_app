@@ -1,5 +1,4 @@
 class BudgetsController < ApplicationController
-  before_action :authenticate
   before_action :correct_user?,  only: [:edit, :update]
 
   def new
