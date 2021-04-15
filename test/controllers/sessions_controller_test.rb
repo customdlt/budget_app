@@ -14,7 +14,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "valid login should redirect to  user page" do
     post '/login', params: { session: setup_valid_user }
-    assert_redirected_to user_path(user)
+    assert_redirected_to user_path(User.find_by(email: setup_valid_user[:email]))
   end
 
   test "flash message should disappear after giving a good user after bad user" do

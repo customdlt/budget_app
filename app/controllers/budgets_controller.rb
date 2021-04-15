@@ -14,7 +14,7 @@ class BudgetsController < ApplicationController
     if @budget.update(amount: @budget.amount + params[:budget][:amount].to_f)
       redirect_to user_path(@budget.user)
     else
-      flash[:error] = @budget.errors.full_messages[0]
+      flash.now[:error] = @budget.errors.full_messages[0]
       render 'edit'
     end
   end

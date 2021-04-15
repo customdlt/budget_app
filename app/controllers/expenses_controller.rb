@@ -11,7 +11,7 @@ class ExpensesController < ApplicationController
     if @expense.save
       redirect_to user_path(@expense.user)
     else
-      flash[:error] = @expense.errors.full_messages[0]
+      flash.now[:error] = @expense.errors.full_messages[0]
       render 'new'
     end
   end
@@ -25,7 +25,7 @@ class ExpensesController < ApplicationController
     if @expense.update(amount_paid: @expense.amount_paid + expense_params[:amount_paid].to_f)
       redirect_to user_path(@expense.user)
     else
-      flash[:error] = @expense.errors.full_messages[0]
+      flash.now[:error] = @expense.errors.full_messages[0]
       render 'edit'
     end
   end
