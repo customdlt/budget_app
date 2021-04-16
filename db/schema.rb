@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2021_04_03_213056) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "budgets", force: :cascade do |t|
-    t.decimal "amount"
+    t.decimal "total_amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_budgets_on_user_id"
   end
 
@@ -32,10 +35,10 @@ ActiveRecord::Schema.define(version: 2021_04_03_213056) do
     t.decimal "amount_due"
     t.decimal "amount_paid"
     t.boolean "paid"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "category_id", null: false
+    t.bigint "category_id", null: false
     t.string "description"
     t.index ["category_id"], name: "index_expenses_on_category_id"
     t.index ["user_id"], name: "index_expenses_on_user_id"
