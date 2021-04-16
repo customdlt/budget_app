@@ -18,4 +18,10 @@
     font-weight: bold;
     color: #000000;
   }
+  &-HelpList{
+    line-height: 35px;
+    &-HelpItem{
+      font-size: large;
+    }
+  }
 }
